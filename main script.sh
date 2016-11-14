@@ -80,6 +80,7 @@ table4='body > table:nth-child(9) > tbody > tr > td > table > tbody > tr:nth-chi
 
 hxnormalize -x -l 2000 $f \
 | hxselect -c $table4 \
+| sed -e 's/            //g' | tr -d '\n' \
 | sed -e 's/&nbsp;&nbsp;/\|/g' \
 -e 's/&nbsp;//g' \
 -e 's/<\/b>//g' \
@@ -87,6 +88,7 @@ hxnormalize -x -l 2000 $f \
 | awk '{ printf "\"" $0 "\"" }' \
 | awk -F "|" '{ printf $0 "," "\"" $2 "\""}' \
 | sed -e "s/\"<b>कुळाचे नाव\"//g" \
+| sed -e "s/<br\/>//g" \
 >> saatbarainfo.csv
 printf "," >> saatbarainfo.csv #end with comma
 
