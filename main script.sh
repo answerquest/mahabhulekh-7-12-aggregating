@@ -11,9 +11,11 @@ echo "Scraping from $f"
 namepath='body > table:nth-child(7) > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(1) > font'
 gat=`hxnormalize -x -l 2000 $f | hxselect -c $namepath | cut -d'/' -f1 | tr -d '\n'`
 hissa=`hxnormalize -x -l 2000 $f | hxselect -c $namepath| cut -d'/' -f2- | tr -d '\n'`
-table3='body > table:nth-child(9) > tbody > tr > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody'
 
 # table 3, going into saatbaranames.csv
+table3='body > table:nth-child(9) > tbody > tr > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody'
+# alternative table3='body > table:nth-child(9) > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody'
+
 hxnormalize -x -l 2000 $f   `# normalize HTML, keep large line width` \
 | hxselect -c $table3 `# take innerHTML of table 3` \
 | sed -e 's/<font face="Sakal Marathi Normal" size="2">//g' \
@@ -58,6 +60,7 @@ printf "$gat,$hissa," >> saatbarainfo.csv
 #############################
 # table 2:
 table2='body > table:nth-child(9) > tbody > tr > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > table'
+# alternative table2='body > table:nth-child(9) > tbody > tr:nth-child(1) > td:nth-child(1) > table'
 
 hxnormalize -x -l 2000 $f \
 | hxselect $table2 \
@@ -73,6 +76,7 @@ hxnormalize -x -l 2000 $f \
 #############################
 # table 4:
 table4='body > table:nth-child(9) > tbody > tr > td > table > tbody > tr:nth-child(1) > td:nth-child(3) > font'
+#alternative table4='body > table:nth-child(9) > tbody > tr:nth-child(1) > td:nth-child(3) > font'
 
 hxnormalize -x -l 2000 $f \
 | hxselect -c $table4 \
@@ -89,6 +93,8 @@ printf "," >> saatbarainfo.csv #end with comma
 #############################
 # table 5:
 table5='body > table:nth-child(9) > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(2) > font'
+# alternative table5='body > table:nth-child(9) > tbody > tr:nth-child(2) > td:nth-child(2) > font'
+
 hxnormalize -x -l 2000 $f \
 | hxselect -c $table5 \
 | sed -e 's/&nbsp;//g' \
